@@ -9,7 +9,7 @@ module.exports = {
             option.setName('say')
                 .setDescription('What you want the bot to say')),
 	async execute(interaction) {
-		const say = interaction.options.getUser('say');
+		const say = interaction.options.getString('say');
 		await interaction.reply(say);
 	},
 };
