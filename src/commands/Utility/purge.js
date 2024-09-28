@@ -11,6 +11,12 @@ module.exports = {
 
 	async execute(interaction) {
         const amount = interaction.options.getInteger('amount');
-        await interaction.channel.bulkDelete(amount).then(interaction.reply(`:hammer: Successfully purged ${amount} messages!`));
+        if(amount > 0 ) {
+            await interaction.channel.bulkDelete(amount).then(interaction.reply(`:hammer: Successfully purged ${amount} messages!`));
+        }
+        else {
+            await interaction.reply(`<:Shiggy:1289324436725694474> You can't purge 0 messages!`);
+        }
+      
 	},    
 };

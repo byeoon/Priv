@@ -5,6 +5,6 @@ module.exports = {
 		.setName('shiggy')
 		.setDescription('shiggy wiggy'),
 	async execute(interaction) {
-			await interaction.reply(`<:shigyay:1272085916189720619:>`);
+			await interaction.reply(`<a:Shiggy:1289324436725694474> shiggie wiggie!!`);
 	},
 };
