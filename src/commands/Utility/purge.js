@@ -15,7 +15,7 @@ module.exports = {
             await interaction.channel.bulkDelete(amount).then(interaction.reply(`:hammer: Successfully purged ${amount} messages!`));
         }
         else {
-            await interaction.reply(`<:Shiggy:1289324436725694474> You can't purge 0 messages!`);
+            await interaction.reply(`:x: You can't purge 0 messages!`);
         }
       
 	},    
