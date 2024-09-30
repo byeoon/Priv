@@ -10,7 +10,7 @@ module.exports = {
 
 	async execute(interaction) {
         try {
-            interaction.channel.permissionOverwrites.edit(interaction.guildId, { ViewChannel: true }).then(interacton.reply(":hammer: Successfully unlocked the channel!"));
+            interaction.channel.permissionOverwrites.edit(interaction.guildId, { ViewChannel: true }).then(interaction.reply(":hammer: Successfully unlocked the channel!"));
         }
         catch {
             await interaction.reply('There was an error unlocking the channel. Did you give the bot enough permisions?');
