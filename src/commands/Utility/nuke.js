@@ -9,7 +9,7 @@ module.exports = {
 
 	async execute(interaction) {
             const newChannel = await interaction.channel.clone();
-            console.log(newChannel.id);
+            console.log("[Purger] A channel was nuked. New channel ID: " + newChannel.id);
             interaction.channel.delete().then(interaction.guild.channels.cache.get(newChannel.id).send(`:hammer: Channel nuked. (Executed by ${interaction.user})`));
 	},
 

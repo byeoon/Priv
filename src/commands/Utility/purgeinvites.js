@@ -8,6 +8,7 @@ module.exports = {
         .setDefaultMemberPermissions(PermissionFlagsBits.CreateInstantInvite, PermissionFlagsBits.ManageGuild)
         .setDMPermission(false),
 
+        // todo: purge invites made by speicifc people aka target (we <3 damage control totally not projecting)
 	async execute(interaction) {
         let count;
         try {
@@ -17,7 +18,7 @@ module.exports = {
               interaction.reply(":hammer: Deleted " + count + " invites!")
         }
         catch {
-            await interaction.reply(':x: There was an issue deleting all the invites.');
+            await interaction.reply(':x: There was an issue deleting invites.');
             
         }
        
