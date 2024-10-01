@@ -2,7 +2,7 @@
 const { token } = require('./config.json');
 const fs = require('node:fs');
 const path = require('node:path');
-const { Client, Collection, Events, GatewayIntentBits } = require('discord.js');
+const { Client, Collection, Events, GatewayIntentBits, ActivityType } = require('discord.js');
 const client = new Client({ intents: [GatewayIntentBits.Guilds] });
 const foldersPath = path.join(__dirname, 'commands');
 const commandFolders = fs.readdirSync(foldersPath);
@@ -22,6 +22,8 @@ for (const folder of commandFolders) {
 		}
 	}
 }
+
+
 
 client.on(Events.InteractionCreate, async interaction => {
 	if (!interaction.isChatInputCommand()) return;
@@ -44,10 +46,17 @@ client.on(Events.InteractionCreate, async interaction => {
 });
 
 client.once(Events.ClientReady, readyClient => {
-	console.log(`Logged in as ${readyClient.user.tag}`);
+	console.log(`[Purger] Logged in as ${readyClient.user.tag}`);
+	client.user.setPresence({ 
+		activities: [{ 
+			name: 'over everyone...', 
+			type: ActivityType.Watching, 
+		}], 
+		status: 'online' 
+	});
+	
 });
 
 client.login(token);
-
 
 
