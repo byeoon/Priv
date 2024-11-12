@@ -18,7 +18,7 @@ module.exports = {
             selectedchannel.permissionOverwrites.edit(interaction.guildId, { ViewChannel: true }).then(interaction.reply(":hammer: Successfully unlocked the channel!"));
         }
         catch {
-            await interaction.reply('There was an error unlocking the channel. Did you give the bot enough permisions?');
+            await interaction.reply(':x: There was an error unlocking the channel. Does the bot have the right permisions?');
         }
        
 	},

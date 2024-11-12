@@ -7,12 +7,13 @@ module.exports = {
         .setDefaultMemberPermissions(PermissionFlagsBits.ManageMessages, PermissionFlagsBits.ManageChannels)
         .addIntegerOption(option =>
             option.setName('amount')
-                .setDescription('Amount of messages to purge (Must be below 100 for it to work!)')),
+                .setDescription('Amount of messages to purge (Must be below 100)')),
 
 	async execute(interaction) {
         const amount = interaction.options.getInteger('amount');
         if(amount > 0 ) {
             await interaction.channel.bulkDelete(amount).then(interaction.reply(`:hammer: Successfully purged ${amount} messages!`));
+            console.log("Someone purged " + amount + " messages.");
         }
         else {
             await interaction.reply(`:x: You can't purge 0 messages!`);

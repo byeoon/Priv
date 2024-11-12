@@ -49,7 +49,7 @@ client.once(Events.ClientReady, readyClient => {
 	console.log(`[Purger] Logged in as ${readyClient.user.tag}`);
 	client.user.setPresence({ 
 		activities: [{ 
-			name: 'over everyone...', 
+			name: 'over everyone.', 
 			type: ActivityType.Watching, 
 		}], 
 		status: 'online' 

@@ -11,16 +11,13 @@ module.exports = {
 		option.setName('channel')
 			.setDescription('The channel to lockdown.')
             .setRequired(true)),
-        // todo add mute only mode that actually works, 
-        // TODO: add channel selection.
+        //TODO: add mute only mode that actually works, 
+        // yeah this breaks if the perms arent set properly..
 	async execute(interaction) {
       //  const mutemode = interaction.options.getBoolean('mutemode');
        try {
         const selectedchannel = interaction.options.getChannel("channel");
         console.log("[Purger] Locking down " + selectedchannel.id);
-        //    if(mutemode) {
-            //    interaction.channel.permissionOverwrites.edit(interaction.guildId, { SendMessages : false }).then(interaction.reply(":hammer: Successfully locked down the channel! (Mute Mode)"));
-          //  }
             selectedchannel.permissionOverwrites.edit(interaction.guildId, { ViewChannel: false }).then(interaction.reply(":hammer: Successfully locked down the channel!"));
         }
         catch {
