@@ -4,6 +4,7 @@ module.exports = {
   data: new SlashCommandBuilder()
     .setName("say")
     .setDescription("Forces the bot to say something")
+    .setDMPermission(true)
     .setDefaultMemberPermissions(PermissionFlagsBits.Administrator)
     .addStringOption((option) =>
       option.setName("say").setDescription("What you want the bot to say")

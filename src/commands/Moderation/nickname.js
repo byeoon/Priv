@@ -2,10 +2,9 @@ const { SlashCommandBuilder } = require('discord.js');
 
 module.exports = {
 	data: new SlashCommandBuilder()
-		.setName('silentban')
-		.setDMPermission(false)
-		.setDescription('Silently bans a specified user and removes all their messages.'),
-		
+		.setName('nickname')
+        .setDMPermission(false)
+		.setDescription('Changes someones nickname.'),
 	async execute(interaction) {
 			await interaction.reply(`Does not work yet.`);
 	},

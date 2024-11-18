@@ -4,6 +4,7 @@ const { EmbedBuilder } = require("discord.js");
 module.exports = {
   data: new SlashCommandBuilder()
     .setName("note")
+    .setDMPermission(false)
     .setDescription("Logs a note about a user to a specific channel.")
     .addStringOption((option) =>
       option
@@ -28,14 +29,13 @@ module.exports = {
 	let notes = 0;
     const note = interaction.options.getString("note");
     const user = interaction.options.getUser("target");
-	notes++;
-	console.log("[Purger] An anonymous user noted someone for " + note);
+	  console.log("[Purger] An anonymous user noted someone for " + note);
 
     const noteEmbed = new EmbedBuilder()
       .setColor(0x0099ff)
       .setTitle(`Note on ${user} (${user.id})`)
       .setDescription(`${note}`)
-	  .setFooter({ text: `There have been ${notes} notes in total.`})
+	  .setFooter({ text: `This user has ...`})
 	  .setTimestamp();
     await interaction.reply({ embeds: [noteEmbed] });
   },
