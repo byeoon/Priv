@@ -6,19 +6,16 @@ const configPath = path.resolve(__dirname, '../../config.json');
 
 module.exports = {
     data: new SlashCommandBuilder()
-        .setName('whitelist-setchannel')
-        .setDescription('Set the channel to output whitelist logs to.')
+        .setName('welcome-toggle')
+        .setDescription('Turn on and off the welcome channel module.')
         .setDefaultMemberPermissions(PermissionFlagsBits.Administrator)
         .setDMPermission(false)
-        .addChannelOption(option =>
-        option.setName('channel')
-            .setDescription('The channel to set as the default whitelist channel.')
+        .addBooleanOption(option =>
+        option.setName('setting')
+            .setDescription('Toggle the welcome module.')
             .setRequired(true)),
     async execute(interaction) {
         try {
-            const selectedchannel = interaction.options.getChannel("channel");
-            console.log("[BGuard] Will now send whitelist logs to " + selectedchannel.id);
-
             // Ensure the config file exists
             if (!fs.existsSync(configPath)) {
                 fs.writeFileSync(configPath, JSON.stringify({}));
@@ -28,15 +25,15 @@ module.exports = {
             const config = JSON.parse(fs.readFileSync(configPath, 'utf8'));
 
             // Update the config with the new channel ID
-            config.whitelistChannelId = selectedchannel.id;
+            config.welcomeModule = interaction.options.getBoolean("setting");
 
             // Save the updated config
             fs.writeFileSync(configPath, JSON.stringify(config, null, 2));
 
-            await interaction.reply(":white_check_mark: Successfully set the whitelist log channel!");
+            await interaction.reply(":white_check_mark: Successfully toggled the module to " + config.welcomeModule);
         } catch (error) {
             console.error(error);
-            await interaction.reply(':x: There was an error setting the default channel.');
+            await interaction.reply(':x: There was an error setting the welcome module.');
         }
     },
 };

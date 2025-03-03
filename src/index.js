@@ -3,9 +3,18 @@ const { token } = require('./config.json');
 const fs = require('node:fs');
 const path = require('node:path');
 const { Client, Collection, Events, GatewayIntentBits, ActivityType } = require('discord.js');
-const client = new Client({ intents: [GatewayIntentBits.Guilds] });
+const client = new Client({
+    intents: [
+        GatewayIntentBits.Guilds,
+        GatewayIntentBits.GuildMembers,
+        GatewayIntentBits.GuildMessages,
+        GatewayIntentBits.MessageContent
+    ]
+});
 const foldersPath = path.join(__dirname, 'commands');
+const eventsPath = path.join(__dirname, 'events');
 const commandFolders = fs.readdirSync(foldersPath);
+const eventFiles = fs.readdirSync(eventsPath)
 
 client.commands = new Collection();
 for (const folder of commandFolders) {
@@ -20,6 +29,15 @@ for (const folder of commandFolders) {
 			console.log(`[WARNING] The command at ${filePath} is missing a required "data" or "execute" property.`);
 		}
 	}
+}
+for (const file of eventFiles) {
+    const filePath = path.join(eventsPath, file);
+    const event = require(filePath);
+    if (event.once) {
+        client.once(event.name, (...args) => event.execute(...args));
+    } else {
+        client.on(event.name, (...args) => event.execute(...args));
+    }
 }
 
 
@@ -45,10 +63,10 @@ client.on(Events.InteractionCreate, async interaction => {
 });
 
 client.once(Events.ClientReady, readyClient => {
-	console.log(`[Purger] Logged in as ${readyClient.user.tag}`);
+	console.log(`[BGuard] Logged in as ${readyClient.user.tag}`);
 	client.user.setPresence({ 
 		activities: [{ 
-			name: 'your server', 
+			name: 'your server very carefully.', 
 			type: ActivityType.Watching, 
 		}], 
 		status: 'online' 
