@@ -3,28 +3,22 @@ const { ChannelType, Client, Events, Formatters, GatewayIntentBits, PermissionsB
 
 module.exports = {
 	data: new SlashCommandBuilder()
-		.setName('lockdown')
-		.setDescription('Locks down a channel to staff only.')
+		.setName('whitelist setchannel')
+		.setDescription('Set the channel to output whitelist logs to.')
         .setDefaultMemberPermissions(PermissionFlagsBits.Administrator)
         .setDMPermission(false)
         .addChannelOption(option =>
 		option.setName('channel')
-			.setDescription('The channel to lockdown.')
+			.setDescription('The channel to set as the default whitelist channel.')
             .setRequired(true)),
-        //TODO: add mute only mode that actually works, 
-        // yeah this breaks if the perms arent set properly..
 	async execute(interaction) {
-      //  const mutemode = interaction.options.getBoolean('mutemode');
        try {
         const selectedchannel = interaction.options.getChannel("channel");
-        console.log("[Purger] Locking down " + selectedchannel.id);
+        console.log("[Protector] Will now send whitelist logs to " + selectedchannel.id);
             selectedchannel.permissionOverwrites.edit(interaction.guildId, { ViewChannel: false }).then(interaction.reply(":hammer: Successfully locked down the channel!"));
         }
         catch {
-            await interaction.reply(':x: There was an error locking down the channel. Did you give the bot enough permisions?');
-        }
-       
-	},
-
-    
+            await interaction.reply(':x: There was an error setting the default chanel.');
+        } 
+	},  
 };

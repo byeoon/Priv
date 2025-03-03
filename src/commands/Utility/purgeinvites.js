@@ -38,7 +38,6 @@ module.exports = {
         }
         catch {
             await interaction.reply(':x: There was an issue deleting invites.');
-            
         }
        
 	},

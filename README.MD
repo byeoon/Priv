@@ -1,2 +1,2 @@
-# Purger
-Open source Discord Bot that aims to purge messages in a channel, for the paranoid people.
+# BGuard
+A server guarding tool with whitelist and other utilities.

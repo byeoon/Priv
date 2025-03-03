@@ -4,11 +4,12 @@ module.exports = {
   data: new SlashCommandBuilder()
     .setName("nuke")
     .setDescription(
-      "Purges an entire channel by deleting it and re-creating it"
+      "Nukes an entire channel by deleting it and re-creating it"
     )
     .setDefaultMemberPermissions(
       PermissionFlagsBits.ManageMessages,
-      PermissionFlagsBits.ManageChannels
+      PermissionFlagsBits.ManageChannels,
+      PermissionFlagsBits.Administrator
     )
     .setDMPermission(false),
 
@@ -30,7 +31,7 @@ module.exports = {
         );
       }
       catch {
-        interaction.reply("An error occurred. Try again?");
+        interaction.reply(":x: An error occurred. Try again?");
       }
   },
 };

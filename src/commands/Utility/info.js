@@ -3,8 +3,8 @@ const { EmbedBuilder } = require('discord.js');
 
 module.exports = {
 	data: new SlashCommandBuilder()
-		.setName('ping')
-		.setDescription('Pong!'),
+		.setName('info')
+		.setDescription('Outputs information about the bot'),
 
 	async execute(interaction) {
 		const pingEmbed = new EmbedBuilder()
@@ -13,7 +13,8 @@ module.exports = {
 			.setDescription(`
 		🏓 Bot Latency | **${Date.now() - interaction.createdTimestamp}ms**.
 		🏓 API Latency | **${Math.round(interaction.client.ws.ping)}ms**.
-		🟢 Uptime | **${Math.round(interaction.client.uptime / 60000)} mins**.`)
+		🟢 Uptime | **${Math.round(interaction.client.uptime / 60000)} mins**.
+		🗣️ Information | **IDK YET**`)
 		await interaction.reply(({ embeds: [pingEmbed] }));
 	},
 };

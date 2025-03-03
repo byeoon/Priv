@@ -26,7 +26,7 @@ module.exports = {
   ),
 
   async execute(interaction) {
-	let notes = 0;
+	  let notes;
     const note = interaction.options.getString("note");
     const user = interaction.options.getUser("target");
 	  console.log("[Purger] An anonymous user noted someone for " + note);
@@ -35,8 +35,8 @@ module.exports = {
       .setColor(0x0099ff)
       .setTitle(`Note on ${user} (${user.id})`)
       .setDescription(`${note}`)
-	  .setFooter({ text: `This user has ...`})
-	  .setTimestamp();
+	    .setFooter({ text: `This user has ...`})
+	    .setTimestamp();
     await interaction.reply({ embeds: [noteEmbed] });
   },
 };

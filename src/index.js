@@ -7,7 +7,6 @@ const client = new Client({ intents: [GatewayIntentBits.Guilds] });
 const foldersPath = path.join(__dirname, 'commands');
 const commandFolders = fs.readdirSync(foldersPath);
 
-
 client.commands = new Collection();
 for (const folder of commandFolders) {
 	const commandsPath = path.join(foldersPath, folder);
@@ -49,7 +48,7 @@ client.once(Events.ClientReady, readyClient => {
 	console.log(`[Purger] Logged in as ${readyClient.user.tag}`);
 	client.user.setPresence({ 
 		activities: [{ 
-			name: 'over everyone.', 
+			name: 'your server', 
 			type: ActivityType.Watching, 
 		}], 
 		status: 'online' 

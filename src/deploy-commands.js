@@ -24,13 +24,13 @@ for (const folder of commandFolders) {
 const rest = new REST().setToken(token);
 (async () => {
 	try {
-		console.log(`Started refreshing ${commands.length} application (/) commands.`);
+		console.log(`[Protector] > Started reloading ${commands.length} application commands.`);
 		const data = await rest.put(
 			Routes.applicationCommands(clientId),
 			{ body: commands },
 		);
 
-		console.log(`[Purger] Successfully reloaded ${data.length} application (/) commands.`);
+		console.log(`[Protector] > Reloaded ${data.length} application commands.`);
 	} catch (error) {
 		console.error(error);
 	}
