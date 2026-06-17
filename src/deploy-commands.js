@@ -1,7 +1,18 @@
+require('dotenv').config();
 const { REST, Routes } = require('discord.js');
-const { clientId, token, guildId } = require('./config.json');
 const fs = require('node:fs');
 const path = require('node:path');
+
+const token = process.env.DISCORD_TOKEN;
+const clientId = process.env.DISCORD_CLIENT_ID;
+
+let guildId;
+try {
+	const config = require('./config.json');
+	guildId = config.guildId;
+} catch (err) {
+	// Ignore if config.json does not exist or has no guildId
+}
 
 const commands = [];
 const foldersPath = path.join(__dirname, 'commands');

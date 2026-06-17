@@ -2,3 +2,4 @@
 config-vorlie.json
 config.json
 /src/config.json
+.env
