@@ -1,21 +1,14 @@
 const { EmbedBuilder, ButtonBuilder, ButtonStyle, ActionRowBuilder, Events, PermissionsBitField } = require('discord.js');
-const fs = require('fs');
-const path = require('path');
-
-const configPath = path.resolve(__dirname, '../config.json');
+const { getGuildConfig } = require('../utils/config');
 
 module.exports = {
     name: Events.GuildMemberAdd,
     async execute(member) {
-        if (!fs.existsSync(configPath)) {
-            console.error("[Priv] Config file does not exist.");
-            return;
-        }
-        const config = JSON.parse(fs.readFileSync(configPath, 'utf8'));
+        const guildConfig = getGuildConfig(member.guild.id);
 
-        const welcomeChannelId = config.welcomeChannelId;
+        const welcomeChannelId = guildConfig.welcomeChannelId;
         if (!welcomeChannelId) {
-            console.error("[Priv] No welcome channel ID found in config.");
+            console.error("[Priv] No welcome channel ID found in config for guild " + member.guild.id);
             return;
         }
 
@@ -25,7 +18,7 @@ module.exports = {
             return;
         }
 
-        const welcomeToggled = config.welcomeModule;
+        const welcomeToggled = guildConfig.welcomeModule;
         if (welcomeToggled == false) {
             console.error("This server does not have the welcome module enabled.")
             return;

@@ -1,8 +1,5 @@
 const { SlashCommandBuilder, PermissionFlagsBits } = require('discord.js');
-const fs = require('fs');
-const path = require('path');
-
-const configPath = path.resolve(__dirname, '../../config.json');
+const { updateGuildConfig } = require('../../utils/config');
 
 module.exports = {
     data: new SlashCommandBuilder()
@@ -19,19 +16,8 @@ module.exports = {
             const selectedchannel = interaction.options.getChannel("channel");
             console.log("[Priv] Will now send whitelist logs to " + selectedchannel.id);
 
-            // Ensure the config file exists
-            if (!fs.existsSync(configPath)) {
-                fs.writeFileSync(configPath, JSON.stringify({}));
-            }
-
-            // Read the existing config
-            const config = JSON.parse(fs.readFileSync(configPath, 'utf8'));
-
             // Update the config with the new channel ID
-            config.whitelistChannelId = selectedchannel.id;
-
-            // Save the updated config
-            fs.writeFileSync(configPath, JSON.stringify(config, null, 2));
+            updateGuildConfig(interaction.guildId, { whitelistChannelId: selectedchannel.id });
 
             await interaction.reply(":white_check_mark: Successfully set the whitelist log channel!");
         } catch (error) {

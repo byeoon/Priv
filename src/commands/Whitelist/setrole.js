@@ -1,8 +1,5 @@
 const { SlashCommandBuilder, PermissionFlagsBits } = require('discord.js');
-const fs = require('fs');
-const path = require('path');
-
-const configPath = path.resolve(__dirname, '../../config.json');
+const { updateGuildConfig } = require('../../utils/config');
 
 module.exports = {
     data: new SlashCommandBuilder()
@@ -17,22 +14,8 @@ module.exports = {
     async execute(interaction) {
         try {
             const selectedRole = interaction.options.getRole('role');
-            console.log("[Protector] Will now use the role " + selectedRole.id + " for whitelisting new members.");
-
-            // Ensure the config file exists
-            if (!fs.existsSync(configPath)) {
-                fs.writeFileSync(configPath, JSON.stringify({}));
-            }
-
-            // Read the existing config
-            const config = JSON.parse(fs.readFileSync(configPath, 'utf8'));
-
-            // Update the config with the new role ID
-            config.whitelistRoleId = selectedRole.id;
-
-            // Save the updated config
-            fs.writeFileSync(configPath, JSON.stringify(config, null, 2));
-
+            console.log("[Priv] Will now use the role " + selectedRole.id + " for whitelisting new members.");
+            updateGuildConfig(interaction.guildId, { whitelistRoleId: selectedRole.id });
             await interaction.reply(":white_check_mark: Successfully set the whitelist role!");
         } catch (error) {
             console.error(error);

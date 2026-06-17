@@ -1,8 +1,5 @@
 const { SlashCommandBuilder, PermissionFlagsBits } = require('discord.js');
-const fs = require('fs');
-const path = require('path');
-
-const configPath = path.resolve(__dirname, '../../config.json');
+const { updateGuildConfig } = require('../../utils/config');
 
 module.exports = {
     data: new SlashCommandBuilder()
@@ -16,21 +13,12 @@ module.exports = {
             .setRequired(true)),
     async execute(interaction) {
         try {
-            // Ensure the config file exists
-            if (!fs.existsSync(configPath)) {
-                fs.writeFileSync(configPath, JSON.stringify({}));
-            }
-
-            // Read the existing config
-            const config = JSON.parse(fs.readFileSync(configPath, 'utf8'));
+            const setting = interaction.options.getBoolean("setting");
 
             // Update the config with the new channel ID
-            config.welcomeModule = interaction.options.getBoolean("setting");
+            updateGuildConfig(interaction.guildId, { welcomeModule: setting });
 
-            // Save the updated config
-            fs.writeFileSync(configPath, JSON.stringify(config, null, 2));
-
-            await interaction.reply(":white_check_mark: Successfully toggled the module to " + config.welcomeModule);
+            await interaction.reply(":white_check_mark: Successfully toggled the module to " + setting);
         } catch (error) {
             console.error(error);
             await interaction.reply(':x: There was an error setting the welcome module.');
