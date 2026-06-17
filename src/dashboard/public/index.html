@@ -1,0 +1,166 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Priv Dashboard</title>
+    <meta name="description"
+        content="Configure settings, manage whitelists, and view server analytics for the Priv Discord bot in real-time.">
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link
+        href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700&family=Outfit:wght@400;500;600;700;800&display=swap"
+        rel="stylesheet">
+    <link rel="stylesheet" href="style.css">
+</head>
+
+<body class="landing-page">
+    <div class="glow-container">
+        <div class="glow-orb glow-orb-1"></div>
+        <div class="glow-orb glow-orb-2"></div>
+    </div>
+
+    <!-- Navigation Header -->
+    <header class="navbar">
+        <div class="navbar-container">
+            <a href="index.html" class="nav-logo" id="nav-logo-link">
+                <span class="logo-dot"></span>
+                <span>Priv</span>
+            </a>
+            <nav class="nav-menu">
+                <a href="#features" class="nav-link" id="nav-link-features">Features</a>
+                <a href="#stats" class="nav-link" id="nav-link-stats">Stats</a>
+                <a href="/api/auth/login" class="nav-btn-primary" id="nav-login-btn">
+                    <span>Authenticate with Discord</span>
+                    <svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"
+                        stroke-linecap="round" stroke-linejoin="round">
+                        <path d="M15 3h4a2 2 0 0 1 2 2v14a2 2 0 0 1-2 2h-4" />
+                        <polyline points="10 17 15 12 10 7" />
+                        <line x1="15" y1="12" x2="3" y2="12" />
+                    </svg>
+                </a>
+            </nav>
+        </div>
+    </header>
+
+    <!-- Main Content Area -->
+    <main class="main-container">
+        <!-- Hero Section -->
+        <section class="hero-section">
+            <div class="hero-content">
+                <h1 class="hero-title">Elevate Your Discord Server Control</h1>
+                <p class="hero-description">
+                    Empower your community moderation. Secure your channels, automate roles, and control member access
+                    with Priv's state-of-the-art Web Dashboard.
+                </p>
+                <div class="hero-actions">
+                    <a href="/api/auth/login" class="btn-hero-login" id="hero-login-btn">
+                        <span>Get Started with Discord</span>
+                        <svg width="22" height="22" viewBox="0 0 24 24" fill="none" stroke="currentColor"
+                            stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
+                            <line x1="5" y1="12" x2="19" y2="12" />
+                            <polyline points="12 5 19 12 12 19" />
+                        </svg>
+                    </a>
+                </div>
+            </div>
+        </section>
+
+        <!-- Stats Section -->
+        <section id="stats" class="stats-section">
+            <div class="section-header">
+                <h2>Real-Time Activity</h2>
+                <p>Live stats from the running bot client instance.</p>
+            </div>
+            <div class="stats-grid">
+                <div class="stat-card" id="stat-card-guilds">
+                    <div class="stat-icon-wrapper">
+                        <svg width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor"
+                            stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
+                            <rect x="2" y="2" width="20" height="8" rx="2" ry="2" />
+                            <rect x="2" y="14" width="20" height="8" rx="2" ry="2" />
+                            <line x1="6" y1="6" x2="6.01" y2="6" />
+                            <line x1="6" y1="18" x2="6.01" y2="18" />
+                        </svg>
+                    </div>
+                    <div class="stat-info">
+                        <span class="stat-value" id="stat-guilds">...</span>
+                        <span class="stat-label">Active Servers</span>
+                    </div>
+                </div>
+                <div class="stat-card" id="stat-card-users">
+                    <div class="stat-icon-wrapper">
+                        <svg width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor"
+                            stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
+                            <path d="M17 21v-2a4 4 0 0 0-4-4H5a4 4 0 0 0-4 4v2" />
+                            <circle cx="9" cy="7" r="4" />
+                            <path d="M23 21v-2a4 4 0 0 0-3-3.87" />
+                            <path d="M16 3.13a4 4 0 0 1 0 7.75" />
+                        </svg>
+                    </div>
+                    <div class="stat-info">
+                        <span class="stat-value" id="stat-users">...</span>
+                        <span class="stat-label">Total Users</span>
+                    </div>
+                </div>
+                <div class="stat-card" id="stat-card-ping">
+                    <div class="stat-icon-wrapper">
+                        <svg width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor"
+                            stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
+                            <path d="M22 12h-4l-3 9L9 3l-3 9H2" />
+                        </svg>
+                    </div>
+                    <div class="stat-info">
+                        <span class="stat-value" id="stat-ping">...</span>
+                        <span class="stat-label">API Latency</span>
+                    </div>
+                </div>
+                <div class="stat-card" id="stat-card-uptime">
+                    <div class="stat-icon-wrapper">
+                        <svg width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor"
+                            stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
+                            <circle cx="12" cy="12" r="10" />
+                            <polyline points="12 6 12 12 16 14" />
+                        </svg>
+                    </div>
+                    <div class="stat-info">
+                        <span class="stat-value" id="stat-uptime">...</span>
+                        <span class="stat-label">Bot Uptime</span>
+                    </div>
+                </div>
+            </div>
+        </section>
+
+        <!-- Features Section -->
+        <section id="features" class="features-section">
+            <div class="section-header">
+                <h2>Designed for Admins</h2>
+                <p>Everything you need to secure your community at your fingertips.</p>
+            </div>
+            <div class="features-grid">
+                <div class="feature-card" id="feature-card-whitelist">
+                    <h3>Whitelist Role Assignments</h3>
+                    <p>Dynamically control which roles are granted to newly approved whitelist members, managed safely
+                        in config.</p>
+                </div>
+                <div class="feature-card" id="feature-card-logging">
+                    <h3>Dedicated Whitelist Logs</h3>
+                    <p>Direct whitelist events and voucher histories to specific logging channels to keep audits clear
+                        and organized.</p>
+                </div>
+                <div class="feature-card" id="feature-card-speed">
+                    <h3>Integrated Low Latency</h3>
+                    <p>Because the dashboard connects in-memory to the bot process, changes update immediately without
+                        delay.</p>
+                </div>
+            </div>
+        </section>
+    </main>
+    <footer class="footer">
+        <p>&copy; 2026 Priv Project. All rights reserved.</p>
+    </footer>
+    <script src="app.js"></script>
+</body>
+
+</html>

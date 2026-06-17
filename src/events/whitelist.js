@@ -8,6 +8,12 @@ module.exports = {
 
         const guildConfig = getGuildConfig(member.guild.id);
 
+        const whitelistToggled = guildConfig.whitelistModule;
+        if (whitelistToggled === false) {
+            console.log(`[Priv] Whitelist module is disabled for guild ${member.guild.id}`);
+            return;
+        }
+
         const whitelistChannelId = guildConfig.whitelistChannelId;
         if (!whitelistChannelId) {
             console.error("[Priv] No whitelist channel ID found in config for guild " + member.guild.id);

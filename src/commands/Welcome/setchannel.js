@@ -15,8 +15,6 @@ module.exports = {
         try {
             const selectedchannel = interaction.options.getChannel("channel");
             console.log("[Priv] Will now send welcome messages to " + selectedchannel.id);
-
-            // Update the config with the new channel ID
             updateGuildConfig(interaction.guildId, { welcomeChannelId: selectedchannel.id });
 
             await interaction.reply(":white_check_mark: Successfully set the welcome channel!");

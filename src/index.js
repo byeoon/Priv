@@ -86,4 +86,8 @@ client.on(Events.GuildDelete, guild => {
 
 client.login(token);
 
+const { startDashboard } = require('./dashboard/server');
+startDashboard(client);
+
+
 

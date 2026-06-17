@@ -8,14 +8,12 @@ module.exports = {
         .setDefaultMemberPermissions(PermissionFlagsBits.Administrator)
         .setDMPermission(false)
         .addBooleanOption(option =>
-        option.setName('setting')
-            .setDescription('Toggle the welcome module.')
-            .setRequired(true)),
+            option.setName('setting')
+                .setDescription('Toggle the welcome module.')
+                .setRequired(true)),
     async execute(interaction) {
         try {
             const setting = interaction.options.getBoolean("setting");
-
-            // Update the config with the new channel ID
             updateGuildConfig(interaction.guildId, { welcomeModule: setting });
 
             await interaction.reply(":white_check_mark: Successfully toggled the module to " + setting);
