@@ -21,8 +21,6 @@ module.exports = {
     try {
       const position = interaction.channel.position;
       const newChannel = await interaction.channel.clone();
-
-      // Position the new channel in the exact same place
       await newChannel.setPosition(position);
 
       console.log(`[Priv] A channel was nuked. Old ID: ${interaction.channel.id}, New ID: ${newChannel.id}`);
