@@ -8,25 +8,25 @@ module.exports = {
     name: Events.GuildMemberAdd,
     async execute(member) {
         if (!fs.existsSync(configPath)) {
-            console.error("[BGuard] Config file does not exist.");
+            console.error("[Priv] Config file does not exist.");
             return;
         }
         const config = JSON.parse(fs.readFileSync(configPath, 'utf8'));
 
         const welcomeChannelId = config.welcomeChannelId;
         if (!welcomeChannelId) {
-            console.error("[BGuard] No welcome channel ID found in config.");
+            console.error("[Priv] No welcome channel ID found in config.");
             return;
         }
 
         const welcomeChannel = member.guild.channels.cache.get(welcomeChannelId);
         if (!welcomeChannel) {
-            console.error("[BGuard] Welcome channel not found.");
+            console.error("[Priv] Welcome channel not found.");
             return;
         }
 
         const welcomeToggled = config.welcomeModule;
-        if(welcomeToggled == false) {
+        if (welcomeToggled == false) {
             console.error("This server does not have the welcome module enabled.")
             return;
         }
@@ -50,6 +50,6 @@ module.exports = {
 
 // i want there to be the ability to toggle modules like lets say
 // you want whitelist but no welcome channel or you want a welcome channel but no whitelist
-// so this is kinda smart 
+// so this is kinda smart
 // i think that should be done in src/events/whitelist.js when accepting a member idk
 // fair

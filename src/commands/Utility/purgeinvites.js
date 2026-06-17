@@ -1,46 +1,46 @@
-const { SlashCommandBuilder, PermissionFlagsBits, Invite  } = require('discord.js');
-const { ChannelType, Client, Events, Formatters, GatewayIntentBits, PermissionsBitField } = require('discord.js');
+const { SlashCommandBuilder, PermissionFlagsBits } = require('discord.js');
 
 module.exports = {
 	data: new SlashCommandBuilder()
 		.setName('purgeinvites')
 		.setDescription('Deletes every single invite to the server.')
-        .setDefaultMemberPermissions(PermissionFlagsBits.CreateInstantInvite, PermissionFlagsBits.ManageGuild)
-        .setDMPermission(false)
-        .addUserOption((option) =>
-        option
-            .setName("target")
-            .setDescription("Select user to purge invites of")
-            .setRequired(false)
-    ),
+		.setDefaultMemberPermissions(PermissionFlagsBits.ManageGuild)
+		.setDMPermission(false)
+		.addUserOption((option) =>
+			option
+				.setName("target")
+				.setDescription("Select user to purge invites of")
+				.setRequired(false)
+		),
 
-    // todo: purge invites made by speicifc people aka target (we <3 damage control totally not projecting)
 	async execute(interaction) {
-        let count = 0;
-        const user = interaction.options.getUser("target");
-        try {
-            if(!user) {
-            interaction.guild.invites.fetch().then(invites => {
-                invites.each(i => {
-                    count++; // fucking thing is not counting even though its before the delete statement!
-                    i.delete();
-                }
-                );
-                interaction.reply(":hammer: Deleted " + count + " invites!");
-                console.log("[Purger] Someone deleted " + count + " invites.");
-              })
-            }
-            else 
-            {
-                // now there IS a user!
+		const targetUser = interaction.options.getUser("target");
+		try {
+			const invites = await interaction.guild.invites.fetch();
+			let count = 0;
 
-            }
-        }
-        catch {
-            await interaction.reply(':x: There was an issue deleting invites.');
-        }
-       
+			for (const invite of invites.values()) {
+				if (targetUser) {
+					if (invite.inviter && invite.inviter.id === targetUser.id) {
+						await invite.delete();
+						count++;
+					}
+				} else {
+					await invite.delete();
+					count++;
+				}
+			}
+
+			if (targetUser) {
+				console.log(`[Priv] ${interaction.user.tag} deleted ${count} invites created by ${targetUser.tag}.`);
+				await interaction.reply({ content: `:hammer: Deleted **${count}** invites created by **${targetUser.tag}**!`, ephemeral: true });
+			} else {
+				console.log(`[Priv] ${interaction.user.tag} deleted all ${count} server invites.`);
+				await interaction.reply({ content: `:hammer: Deleted **${count}** invites!`, ephemeral: true });
+			}
+		} catch (error) {
+			console.error(error);
+			await interaction.reply({ content: ':x: There was an issue deleting invites. Do I have the Manage Server permission?', ephemeral: true });
+		}
 	},
-
-    
 };

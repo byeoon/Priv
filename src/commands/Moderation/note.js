@@ -18,25 +18,24 @@ module.exports = {
         .setDescription("The user you want to note.")
         .setRequired(true)
     )
-	.addChannelOption((option) =>
-	option
-	  .setName("channel")
-	  .setDescription("The channel you want to put the note in.")
-	  .setRequired(false)
-  ),
+    .addChannelOption((option) =>
+      option
+        .setName("channel")
+        .setDescription("The channel you want to put the note in.")
+        .setRequired(false)
+    ),
 
   async execute(interaction) {
-	  let notes;
+    let notes;
     const note = interaction.options.getString("note");
     const user = interaction.options.getUser("target");
-	  console.log("[Purger] An anonymous user noted someone for " + note);
 
     const noteEmbed = new EmbedBuilder()
       .setColor(0x0099ff)
       .setTitle(`Note on ${user} (${user.id})`)
       .setDescription(`${note}`)
-	    .setFooter({ text: `This user has ...`})
-	    .setTimestamp();
+      .setFooter({ text: `This user has ...` })
+      .setTimestamp();
     await interaction.reply({ embeds: [noteEmbed] });
   },
 };

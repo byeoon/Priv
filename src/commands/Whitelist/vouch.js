@@ -25,23 +25,23 @@ module.exports = {
 
             const whitelistChannelId = config.whitelistChannelId;
             if (!whitelistChannelId) {
-                console.error("[BGuard] No whitelist channel ID found in config.");
+                console.error("[Priv] No whitelist channel ID found in config.");
                 return;
             }
 
             const whitelistChannel = interaction.guild.channels.cache.get(whitelistChannelId);
             if (!whitelistChannel) {
-                console.error("[BGuard] Whitelist channel not found.");
+                console.error("[Priv] Whitelist channel not found.");
                 return;
             }
 
             // this is a check to see if the user is already in the server and has the whitelist role
             const member = await interaction.guild.members.fetch(selectedUser.id).catch(() => null);
             if (member && member.roles.cache.has(roleId)) {
-                console.log("[BGuard] " + interaction.user.id + " tried to vouch " + selectedUser.id);
+                console.log("[Priv] " + interaction.user.id + " tried to vouch " + selectedUser.id);
                 return await interaction.reply(":x: You cannot vouch a user who is already in the server and has the whitelist role!");
             } else {
-                console.log("[BGuard] " + interaction.user.id + " has vouched " + selectedUser.id);
+                console.log("[Priv] " + interaction.user.id + " has vouched " + selectedUser.id);
                 await whitelistChannel.send({ content: `<@${selectedUser.id}> has been vouched by <@${interaction.user.id}>` });
                 await interaction.reply(":white_check_mark: Vouched user!");
             }

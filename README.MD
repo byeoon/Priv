@@ -1,2 +1,2 @@
-# BGuard
-A server guarding tool with whitelist and other utilities.
+# Priv
+A bot that has niche privacy tools for your discord server.

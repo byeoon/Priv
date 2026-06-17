@@ -11,13 +11,13 @@ module.exports = {
         .setDefaultMemberPermissions(PermissionFlagsBits.Administrator)
         .setDMPermission(false)
         .addChannelOption(option =>
-        option.setName('channel')
-            .setDescription('The channel to set as the default whitelist channel.')
-            .setRequired(true)),
+            option.setName('channel')
+                .setDescription('The channel to set as the default whitelist channel.')
+                .setRequired(true)),
     async execute(interaction) {
         try {
             const selectedchannel = interaction.options.getChannel("channel");
-            console.log("[BGuard] Will now send whitelist logs to " + selectedchannel.id);
+            console.log("[Priv] Will now send whitelist logs to " + selectedchannel.id);
 
             // Ensure the config file exists
             if (!fs.existsSync(configPath)) {

@@ -3,28 +3,28 @@ const fs = require('fs');
 const path = require('path');
 
 const configPath = path.resolve(__dirname, '../config.json');
-console.log("[BGuard] Config file directory: " + configPath);
+console.log("[Priv] Config file directory: " + configPath);
 
 module.exports = {
     name: Events.GuildMemberAdd,
     async execute(member) {
-        console.log(`[BGuard] A new member has joined: ${member.user.tag}`);
+        console.log(`[Priv] A new member has joined: ${member.user.tag}`);
 
         if (!fs.existsSync(configPath)) {
-            console.error("[BGuard] Config file does not exist.");
+            console.error("[Priv] Config file does not exist.");
             return;
         }
         const config = JSON.parse(fs.readFileSync(configPath, 'utf8'));
-        
+
         const whitelistChannelId = config.whitelistChannelId;
         if (!whitelistChannelId) {
-            console.error("[BGuard] No whitelist channel ID found in config.");
+            console.error("[Priv] No whitelist channel ID found in config.");
             return;
         }
 
         const whitelistChannel = member.guild.channels.cache.get(whitelistChannelId);
         if (!whitelistChannel) {
-            console.error("[BGuard] Whitelist channel not found.");
+            console.error("[Priv] Whitelist channel not found.");
             return;
         }
 
@@ -39,7 +39,7 @@ module.exports = {
                 { name: 'Account Created', value: member.user.createdAt.toDateString(), inline: true }
             )
             .setTimestamp();
-        
+
         const row = new ActionRowBuilder()
             .addComponents(
                 new ButtonBuilder()
@@ -68,7 +68,7 @@ module.exports = {
             }
 
             console.log(member.user); // i want to get all possible values
- 
+
             if (i.customId === 'accept') {
                 const roleId = config.whitelistRoleId;
                 if (!roleId) {
@@ -84,10 +84,11 @@ module.exports = {
                 }
             } else if (i.customId === 'decline') {
                 await member.ban({ reason: 'Declined by whitelist.' });
-                try{
-                    await member.send('You have been declined from the server.');}
-                catch{
-                    console.log("[BGuard] User has DMs disabled.");
+                try {
+                    await member.send('You have been declined from the server.');
+                }
+                catch {
+                    console.log("[Priv] User has DMs disabled.");
                 }
                 await i.update({ content: `Declined ${member.user.tag} and banned the member.`, embeds: [], components: [] });
             } else if (i.customId === 'silent-decline') {
